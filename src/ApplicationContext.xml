@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                     http://www.springframework.org/schema/context
+                     http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                     http://www.springframework.org/schema/aop
+                     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+                     http://www.springframework.org/schema/tx
+                     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName"> <value>com.mysql.jdbc.Driver</value> </property> 
+		<property name="url"> <value>jdbc:mysql://localhost:3306/forum</value> </property> 
+		<property name="username"> <value>root</value> </property> <property name="password"> 
+		<value>112233</value> </property> </bean> <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+		<property name="dataSource"> <ref bean="dataSource" /> </property> <property 
+		name="hibernateProperties"> <props> <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> 
+		<prop key="hibernate.show_sql">true</prop> </props> </property> <property 
+		name="mappingResources"> <list> <value>com/frank/bean/User.hbm.xml</value> 
+		<value>com/frank/bean/Item.hbm.xml</value> <value>com/frank/bean/SubItem.hbm.xml</value> 
+		<value>com/frank/bean/Topic.hbm.xml</value> <value>com/frank/bean/Reply.hbm.xml</value> 
+		</list> </property> </bean> <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate"> 
+		<property name="sessionFactory"> <ref bean="sessionFactory" /> </property> 
+		</bean> -->
+	<bean id="userDAO" class="com.frank.DAOlmpl.UserDAOlmpl">
+	</bean>
+	<bean id="itemDAO" class="com.frank.DAOlmpl.ItemDAOlmpl">
+	</bean>
+	<bean id="subItemDAO" class="com.frank.DAOlmpl.SubItemDAOlmpl">
+	</bean>
+	<bean id="topicDAO" class="com.frank.DAOlmpl.TopicDAOlmpl">
+	</bean>
+	<bean id="replyDAO" class="com.frank.DAOlmpl.ReplyDAOlmpl">
+	</bean>
+	
+	<bean id="userService" class="com.frank.servicelmpl.UserServicelmpl">
+		<property name="userDAO">
+			<ref bean="userDAO" />
+		</property>
+	</bean>
+	<bean id="itemService" class="com.frank.servicelmpl.ItemServicelmpl">
+		<property name="itemDAO">
+			<ref bean="itemDAO" />
+		</property>
+	</bean>
+	<bean id="subItemService" class="com.frank.servicelmpl.SubItemServicelmpl">
+		<property name="subItemDAO">
+			<ref bean="subItemDAO" />
+		</property>
+	</bean>
+
+	<bean id="topicService" class="com.frank.servicelmpl.TopicServicelmpl">
+		<property name="topicDAO">
+			<ref bean="topicDAO" />
+		</property>
+	</bean>
+
+	<bean id="replyService" class="com.frank.servicelmpl.ReplyServicelmpl">
+		<property name="replyDAO">
+			<ref bean="replyDAO" />
+		</property>
+	</bean>
+	
+	
+
+
+	<bean id="userInputAction" class="com.frank.action.UserInputAction"
+		scope="prototype">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	<bean id="itemInputAction" class="com.frank.action.ItemInputAction"
+		scope="prototype">
+		<property name="itemService">
+			<ref bean="itemService" />
+		</property>
+	</bean>
+	<bean id="subItemInputAction" class="com.frank.action.SubItemInputAction"
+		scope="prototype">
+		<property name="subItemService">
+			<ref bean="subItemService" />
+		</property>
+	</bean>
+	<bean id="topicInputAction" class="com.frank.action.TopicInputAction"
+		scope="prototype">
+		<property name="topicService">
+			<ref bean="topicService" />
+		</property>
+	</bean>
+	<bean id="replyInputAction" class="com.frank.action.ReplyInputAction"
+		scope="prototype">
+		<property name="replyService">
+			<ref bean="replyService" />
+		</property>
+	</bean>
+	
+
+
+
+
+
+
+
+	<!-- <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> <bean id="txProxyTemplate" 
+		abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"> 
+		<property name="transactionManager" ref="transactionManager" /> <property 
+		name="transactionAttributes"> <props> <prop key="*">PROPAGATION_REQUIRED</prop> 
+		</props> </property> <property name="target"> <ref bean="itemService" /> 
+		</property> </bean> 配置 Annotation 驱动，扫描@Transactional注解的类定义事务 <tx:annotation-driven 
+		transaction-manager="transactionManager"/> 定义事务的传播属性 <tx:advice id="txAdvice" 
+		transaction-manager="transactionManager"> <tx:attributes> <tx:method name="save*" 
+		propagation="REQUIRED"/> <tx:method name="set*" propagation="REQUIRED"/> 
+		<tx:method name="del*" propagation="REQUIRED"/> <tx:method name="update*" 
+		propagation="REQUIRED"/> <tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED"/> 
+		<tx:method name="find*" read-only="true" propagation="NOT_SUPPORTED"/> <tx:method 
+		name="query*" read-only="true" propagation="NOT_SUPPORTED"/> <tx:method name="select*" 
+		read-only="true" propagation="NOT_SUPPORTED"/> <tx:method name="*" rollback-for="Exception"/> 
+		</tx:attributes> </tx:advice> <aop:config proxy-target-class="true"> <aop:pointcut 
+		id="txNeed" expression="execution(* com.frank.DAOlmpl.*.*.*(..))"/> <aop:advisor 
+		pointcut-ref="txNeed" advice-ref="txAdvice"/> </aop:config> -->
+</beans>

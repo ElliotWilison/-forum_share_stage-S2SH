@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.frank.bean.SubItem">
+		<id name="subItemID">
+			<generator class="identity"></generator>
+		</id>
+		<property name="subItemName"></property>
+		<property name="itemID"></property>
+		<property name="itemDescription"></property>
+		<many-to-one name="manager" class="com.frank.bean.User"
+			cascade="none" lazy="false" outer-join="true"></many-to-one>
+
+		<set name="topics" cascade="all" lazy="false">
+			<key column="subItemID"></key>
+			<one-to-many class="com.frank.bean.Topic"></one-to-many>
+		</set>
+
+	</class>
+</hibernate-mapping>

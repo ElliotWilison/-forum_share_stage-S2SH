@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd"> <!-- 指定Struts2配置文件的DTD信息 -->
+<struts><!-- 根节点 -->
+	<package name="struts" extends="struts-default">
+
+		<action name="userInput" class="userInputAction">
+			<result name="success">/JSP/homePage.jsp</result>
+			<result name="erro">/JSP/LoginPage.jsp</result>
+		</action>
+
+		<action name="subItemInput" class="subItemInputAction">
+			<result name="success">/JSP/SubItem.jsp</result>
+			<result name="all">/JSP/newTopic.jsp</result>
+			<result name="input">/JSP/homePage.jsp</result>
+		</action>
+
+		<action name="topicInput" class="topicInputAction">
+			<result name="success">/JSP/Topic.jsp</result>
+			<result name="all">/JSP/Home.jsp</result>
+			<result name="edit">/JSP/EditPage.jsp</result>
+			<result name="search">/Communication/searchPage.jsp</result>
+		</action>
+
+
+		<action name="replyInput" class="replyInputAction">
+			<result name="success">/JSP/Reply.jsp</result>
+			<result name="erro">/JSP/LoginPage.jsp</result>
+		</action>
+
+		<action name="itemInput" class="itemInputAction">
+			<result name="success">/JSP/homePage.jsp</result>
+		</action>
+		
+	
+	</package>
+
+</struts>

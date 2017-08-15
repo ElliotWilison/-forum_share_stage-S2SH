@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.NET/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/forum</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">112233</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="show_sql">false</property>
+		<mapping resource="com/frank/bean/User.hbm.xml"></mapping>
+		<mapping resource="com/frank/bean/Item.hbm.xml"></mapping>
+		<mapping resource="com/frank/bean/SubItem.hbm.xml"></mapping>
+		<mapping resource="com/frank/bean/Topic.hbm.xml"></mapping>
+		<mapping resource="com/frank/bean/Reply.hbm.xml"></mapping>
+	</session-factory>
+</hibernate-configuration>

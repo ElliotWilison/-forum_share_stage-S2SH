@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.frank.bean.Item">
+		<id name="itemID">
+			<generator class="identity"></generator>
+		</id>
+		<property name="itemName"></property>
+		<property name="itemDescription"></property>
+		<many-to-one name="manager" class="com.frank.bean.User"
+			cascade="none" outer-join="true" lazy="false" not-found="ignore"></many-to-one>
+	</class>
+</hibernate-mapping>
